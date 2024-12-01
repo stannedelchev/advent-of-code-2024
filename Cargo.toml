@@ -1,0 +1,12 @@
+[package]
+name = "advent2024"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+criterion = "0.5.1"
+itertools = "0.13.0"
+
+[[bench]]
+name = "problems"
+harness = false
