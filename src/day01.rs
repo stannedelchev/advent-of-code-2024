@@ -1,11 +1,14 @@
 use crate::problem::Problem;
+use std::collections::{HashMap, HashSet};
 
 pub struct Day01;
 
+const ESTIMATED_ELEMENTS: usize = 1000;
+
 impl Problem for Day01 {
     fn part1(&self, lines: std::str::Lines) -> String {
-        let mut left = vec![];
-        let mut right = vec![];
+        let mut left = Vec::with_capacity(ESTIMATED_ELEMENTS);
+        let mut right = Vec::with_capacity(ESTIMATED_ELEMENTS);
 
         for value in lines.map(parse) {
             left.push(value.0);
@@ -23,20 +26,17 @@ impl Problem for Day01 {
     }
 
     fn part2(&self, lines: std::str::Lines) -> String {
-        let mut left = vec![];
-        let mut right = vec![];
+        let mut left = HashSet::with_capacity(ESTIMATED_ELEMENTS);
+        let mut counts = HashMap::with_capacity(ESTIMATED_ELEMENTS);
 
         for value in lines.map(parse) {
-            left.push(value.0);
-            right.push(value.1);
+            left.insert(value.0);
+            counts.entry(value.1).and_modify(|v| *v += 1).or_insert(1);
         }
 
-        left.sort();
-        right.sort();
-
         let mut sum = 0;
-        for value in left.into_iter() {
-            sum += value * right.iter().filter(|v| **v == value).count() as i32;
+        for value in left.iter() {
+            sum += value * counts.get(value).unwrap_or(&0);
         }
 
         sum.to_string()
