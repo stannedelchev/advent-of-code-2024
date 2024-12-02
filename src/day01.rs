@@ -19,7 +19,7 @@ impl Problem for Day01 {
 
         let mut sum = 0;
         for i in 0..left.len() {
-            sum += (left[i] - right[i]).abs()
+            sum += left[i].abs_diff(right[i]);
         }
 
         sum.to_string()

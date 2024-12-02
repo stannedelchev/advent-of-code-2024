@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 criterion = "0.5.1"
 itertools = "0.13.0"
+rayon = "1.10.0"
 
 [[bench]]
 name = "problems"
