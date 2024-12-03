@@ -1,23 +1,26 @@
 mod day01;
 mod day02;
+mod day03;
 mod problem;
 
 use day01::Day01;
 use day02::Day02;
+use day03::Day03;
 use problem::Problem;
 
 fn main() {
+    let day03 = Day03::new();
     let problems: Vec<(&dyn Problem, &str, &str, &str, &str)> = vec![
-    (
-        &Day01 {},
-        "Day01",
-        "inputs/input01.txt",
-        "765748",
-        "27732508",
-    ),
-    (
-        &Day02 {}, "Day02", "inputs/input02.txt", "334", "400"
-    )];
+        (
+            &Day01 {},
+            "Day01",
+            "inputs/input01.txt",
+            "765748",
+            "27732508",
+        ),
+        (&Day02 {}, "Day02", "inputs/input02.txt", "334", "400"),
+        (&day03, "Day03", "inputs/input03.txt", "188741603", "67269798"),
+    ];
 
     for (problem, name, path, part1_solution, part2_solution) in problems {
         let file = std::fs::read_to_string(path).unwrap();
