@@ -7,7 +7,7 @@ pub struct Day05 {}
 
 impl ProblemLines for Day05 {
     fn part1(&self, lines: Lines) -> String {
-        let (rules, updates) = Self::parse(lines);
+        let (rules, updates) = parse(lines);
 
         updates
             .into_iter()
@@ -23,8 +23,7 @@ impl ProblemLines for Day05 {
     }
 
     fn part2(&self, lines: Lines) -> String {
-        let (rules, updates) = Self::parse(lines);
-
+        let (rules, updates) = parse(lines);
         updates
             .into_iter()
             .filter(|update| !update.is_sorted_by(|a, b| rules[*a].contains(b)))
@@ -43,26 +42,25 @@ impl ProblemLines for Day05 {
     }
 }
 
-impl Day05 {
-    fn parse(lines: Lines) -> (Vec<Vec<usize>>, Vec<Vec<usize>>) {
-        let mut rules: Vec<Vec<usize>> = Vec::with_capacity(100);
-        rules.resize_with(100, Default::default);
-        let rules = rules;
-        let (rules, updates) = lines.fold((rules, vec![]), |mut acc, v| {
-            match v.len() {
-                5 => {
-                    acc.0[v[0..2].parse::<usize>().unwrap()].push(v[3..].parse::<usize>().unwrap())
-                }
-                0 => {}
-                _ => acc.1.push(
-                    v.split(',')
-                        .map(|s| s.parse::<usize>().unwrap())
-                        .collect_vec(),
-                ),
-            }
+fn parse(lines: Lines) -> (Vec<Vec<usize>>, Vec<Vec<usize>>) {
+    let mut rules: Vec<Vec<usize>> = Vec::with_capacity(100);
+    rules.resize_with(100, Default::default);
+    let rules = rules;
+    let (rules, updates) = lines.fold((rules, vec![]), |mut acc, v| {
+        match v.len() {
+            5 => acc.0[parse_fast(&v[0..2])].push(parse_fast(&v[3..])),
+            0 => {}
+            _ => acc
+                .1
+                .push(v.split(',').map(|s| parse_fast(s)).collect_vec()),
+        }
 
-            acc
-        });
-        (rules, updates)
-    }
+        acc
+    });
+    (rules, updates)
+}
+
+fn parse_fast(s: &str) -> usize {
+    let bytes = s.as_bytes();
+    ((bytes[0] - 48) * 10 + bytes[1] - 48) as usize
 }
