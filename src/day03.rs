@@ -1,4 +1,4 @@
-use crate::problem::Problem;
+use crate::problem::ProblemLines;
 use regex::Regex;
 
 pub struct Day03 {
@@ -18,7 +18,7 @@ impl Day03 {
     }
 }
 
-impl Problem for Day03 {
+impl ProblemLines for Day03 {
     fn part1(&self, lines: std::str::Lines) -> String {
         lines
             .flat_map(|line| {

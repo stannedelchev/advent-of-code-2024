@@ -1,11 +1,11 @@
-use crate::problem::Problem;
+use crate::problem::ProblemLines;
 use std::collections::{HashMap, HashSet};
 
 pub struct Day01;
 
 const ESTIMATED_ELEMENTS: usize = 1000;
 
-impl Problem for Day01 {
+impl ProblemLines for Day01 {
     fn part1(&self, lines: std::str::Lines) -> String {
         let mut left = Vec::with_capacity(ESTIMATED_ELEMENTS);
         let mut right = Vec::with_capacity(ESTIMATED_ELEMENTS);

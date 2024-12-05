@@ -1,9 +1,9 @@
-use crate::problem::Problem;
+use crate::problem::ProblemLines;
 use itertools::Itertools;
 use rayon::prelude::*;
 pub struct Day02;
 
-impl Problem for Day02 {
+impl ProblemLines for Day02 {
     fn part1(&self, lines: std::str::Lines) -> String {
         lines
             .collect_vec()
